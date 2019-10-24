@@ -181,6 +181,22 @@ func (p *Plugin) handleEphemeralUpdate(w http.ResponseWriter, r *http.Request) {
 	siteURL := *p.API.GetConfig().ServiceSettings.SiteURL
 	count := request.Context["count"].(float64) + 1
 
+	// ** EXAMPLE START **
+	// Invoke OpenInteractiveDialog on ephemeral update.
+	serverConfig := p.API.GetConfig()
+
+	dialogRequest := model.OpenDialogRequest{
+		TriggerId: request.TriggerId,
+		URL:       fmt.Sprintf("%s/plugins/%s/dialog/1", *serverConfig.ServiceSettings.SiteURL, manifest.Id),
+		Dialog:    getDialogWithSampleElements(),
+	}
+	if err := p.API.OpenInteractiveDialog(dialogRequest); err != nil {
+		errorMessage := "Failed to open Interactive Dialog"
+		p.API.LogError(errorMessage, "err", err.Error())
+		return
+	}
+	// ** EXAMPLE END **
+
 	post := &model.Post{
 		Id:        request.PostId,
 		ChannelId: request.ChannelId,
