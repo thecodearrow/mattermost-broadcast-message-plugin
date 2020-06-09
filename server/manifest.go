@@ -12,9 +12,9 @@ var manifest *model.Manifest
 
 const manifestStr = `
 {
-  "id": "com.mattermost.demo-plugin",
-  "name": "Demo Plugin",
-  "description": "This plugin demonstrates the capabilities of a Mattermost plugin.",
+  "id": "com.mattermost.message-broadcast-plugin",
+  "name": "Message Broadcast Plugin",
+  "description": "This plugin can be used to broadcast messages to multiple users.",
   "homepage_url": "https://github.com/mattermost/mattermost-plugin-demo",
   "support_url": "https://github.com/mattermost/mattermost-plugin-demo/issues",
   "icon_path": "assets/icon.svg",

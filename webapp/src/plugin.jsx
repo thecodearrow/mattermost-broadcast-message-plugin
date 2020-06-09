@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import en from 'i18n/en.json';
 
 import es from 'i18n/es.json';
 
-import {id as pluginId} from './manifest';
+import { id as pluginId } from './manifest';
 
 import Root from './components/root';
 import BottomTeamSidebar from './components/bottom_team_sidebar';
@@ -38,10 +38,10 @@ import reducer from './reducer';
 
 function getTranslations(locale) {
     switch (locale) {
-    case 'en':
-        return en;
-    case 'es':
-        return es;
+        case 'en':
+            return en;
+        case 'es':
+            return es;
     }
     return {};
 }
@@ -56,7 +56,16 @@ export default class DemoPlugin {
         registry.registerBottomTeamSidebarComponent(
             BottomTeamSidebar,
         );
-        const {toggleRHSPlugin} = registry.registerRightHandSidebarComponent(
+        registry.registerMainMenuAction(
+            <FormattedMessage
+                id='plugin.name'
+                defaultMessage='Message Broadcast'
+            />,
+            () => store.dispatch(mainMenuAction()),
+            <MainMenuMobileIcon />,
+        );
+        /*
+        const { toggleRHSPlugin } = registry.registerRightHandSidebarComponent(
             RHSView,
             <FormattedMessage
                 id='plugin.name'
@@ -64,7 +73,7 @@ export default class DemoPlugin {
             />);
 
         registry.registerChannelHeaderButtonAction(
-            <ChannelHeaderButtonIcon/>,
+            <ChannelHeaderButtonIcon />,
             () => store.dispatch(toggleRHSPlugin),
             <FormattedMessage
                 id='plugin.name'
@@ -75,14 +84,7 @@ export default class DemoPlugin {
         registry.registerPostTypeComponent('custom_demo_plugin', PostType);
         registry.registerPostTypeComponent('custom_demo_plugin_ephemeral', EphemeralPostType);
 
-        registry.registerMainMenuAction(
-            <FormattedMessage
-                id='plugin.name'
-                defaultMessage='Demo Plugin'
-            />,
-            () => store.dispatch(mainMenuAction()),
-            <MainMenuMobileIcon/>,
-        );
+        
 
         registry.registerChannelHeaderMenuAction(
             <FormattedMessage
@@ -90,7 +92,7 @@ export default class DemoPlugin {
                 defaultMessage='Demo Plugin'
             />,
             (channelId) => store.dispatch(channelHeaderMenuAction(channelId)),
-            <MainMenuMobileIcon/>,
+            <MainMenuMobileIcon />,
         );
 
         registry.registerMainMenuAction(
@@ -111,7 +113,7 @@ export default class DemoPlugin {
                     },
                 });
             },
-            <MainMenuMobileIcon/>,
+            <MainMenuMobileIcon />,
         );
 
         registry.registerPostDropdownMenuAction(
@@ -123,7 +125,7 @@ export default class DemoPlugin {
         );
 
         // eslint-disable-next-line no-unused-vars
-        const {id, rootRegisterMenuItem} = registry.registerPostDropdownSubMenuAction(
+        const { id, rootRegisterMenuItem } = registry.registerPostDropdownSubMenuAction(
             <FormattedMessage
                 id='submenu.menu'
                 key='submenu.menu'
@@ -174,14 +176,14 @@ export default class DemoPlugin {
         );
 
         registry.registerFileUploadMethod(
-            <FileUploadMethodIcon/>,
+            <FileUploadMethodIcon />,
             () => store.dispatch(fileUploadMethodAction()),
             <FormattedMessage
                 id='plugin.upload'
                 defaultMessage='Upload using Demo Plugin'
             />,
         );
-
+*/
         registry.registerWebSocketEventHandler(
             'custom_' + pluginId + '_status_change',
             (message) => {
@@ -189,7 +191,7 @@ export default class DemoPlugin {
             },
         );
 
-        registry.registerAdminConsoleCustomSetting('SecretMessage', SecretMessageSetting, {showTitle: true});
+        registry.registerAdminConsoleCustomSetting('SecretMessage', SecretMessageSetting, { showTitle: true });
         registry.registerAdminConsoleCustomSetting('CustomSetting', CustomSetting);
 
         registry.registerReducer(reducer);

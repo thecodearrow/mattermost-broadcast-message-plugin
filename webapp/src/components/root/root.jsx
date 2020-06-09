@@ -1,22 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-const Root = ({visible, close, theme, subMenu}) => {
+const Root = ({ visible, close, theme, subMenu }) => {
     if (!visible) {
         return null;
-    }
-
-    let extraContent = '';
-    let extraContentTitle = '';
-    if (subMenu) {
-        extraContentTitle = (
-            <FormattedMessage
-                id='demo.triggeredby'
-                defaultMessage='Element clicked in the menu: '
-            />
-        );
-        extraContent = subMenu;
     }
 
     const style = getStyle(theme);
@@ -24,29 +13,48 @@ const Root = ({visible, close, theme, subMenu}) => {
     return (
         <div
             style={style.backdrop}
-            onClick={close}
         >
             <div style={style.modal}>
-                <FormattedMessage
-                    id='root.triggered'
-                    defaultMessage='You have triggered the root component of the demo plugin.'
+                <span><b>Broadcast Message</b></span>
+                <br />
+                <TextField
+                    id='standard-full-width'
+                    label='Find'
+                    style={{ margin: 8 }}
+                    placeholder='Search for Users'
+                    fullWidth={true}
+                    margin='normal'
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
                 />
-                <br/>
-                <br/>
-                <FormattedMessage
-                    id='root.clicktoclose'
-                    defaultMessage='Click anywhere to close.'
+                <br />
+                <TextField
+                    id='standard-full-width'
+                    label='Message'
+                    style={{ margin: 8 }}
+                    placeholder='Enter your message'
+                    fullWidth={true}
+                    multiline
+                    rows={3}
+                    rowsMax={5}
+                    margin='normal'
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
                 />
-                <br/>
-                <br/>
-                <FormattedMessage
-                    id='demo.testintl'
-                    defaultMessage='This is the default string'
-                />
-                <br/>
-                <br/>
-                {extraContentTitle}
-                {extraContent}
+                <br />
+                <Button
+                    variant='contained'
+                    color='primary'
+                >Send</Button>
+                <Button
+                    style={style.cancel}
+                    variant='contained'
+                    color='secondary'
+                    onClick={close}
+                >Cancel</Button>
+
             </div>
         </div>
     );
@@ -73,11 +81,15 @@ const getStyle = (theme) => ({
         justifyContent: 'center',
     },
     modal: {
-        height: '250px',
-        width: '400px',
+        height: '350px',
+        width: '600px',
         padding: '1em',
         color: theme.centerChannelColor,
         backgroundColor: theme.centerChannelBg,
+    },
+    cancel: {
+        position: 'relative',
+        left: '10px',
     },
 });
 
